@@ -1,10 +1,11 @@
 import pygsheets
 import secretToken
 
-def writeToSheet(cell: str, message: str):
-    sheetName = secretToken.sheets
-    authorizer = secretToken.sheetsJson
+sheetName = secretToken.sheets
+authorizer = secretToken.sheetsJson
 
+def writeToSheet(cell: str, message: str):
+    """Update spreadsheet"""
     gc = pygsheets.authorize(service_file=authorizer)
     sh = gc.open(sheetName)
     wk1 = sh.sheet1

@@ -1,5 +1,4 @@
 discord.py==1.7.3
 canvasapi==3.0.0
 pygsheets==2.0.5
-pandas==1.5.1
-python-dotenv
+beautifulsoup4==4.11.1
