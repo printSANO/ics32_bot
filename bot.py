@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from secretToken import canvasToken, canvasUrl, courseID, discordToken
 import time
-from canvas import assingment_id_extractor, get_due_dates
+from canvas import assingment_id_extractor, get_due_dates, get_lecture_link
 
 bot=commands.Bot(command_prefix='!', intents=discord.Intents.default())
 
@@ -23,7 +23,7 @@ def check_time():
 
 def bot_command():
     """Bot command help"""
-    line = f"Bot Commands: \n\n!help : list of bot commands\n\n!due : check assignments due\n\n!fs : check full schedule\n\n!lecture : In development\n\n!oh : Office hour information\n\n!xkcd : A random XKCD comic"
+    line = f"Bot Commands: \n\n!help : list of bot commands\n\n!due : Check assignments due\n\n!fs : Check full schedule\n\n!lecture : (In development) Link to Professor's lecture recordings\n\n!oh : Office hour information\n\n!xkcd : (In development) A random XKCD comic"
     line1 = f"The following commands are for asking questions and answers\n\n!question : (in development) put question! before your actual question so it can be recorded to a spreadsheet for future purposes"
     line2 = f"\n\n!answer : (in development) put answer! before your answer so it can be recorded to a spreadsheet for future purposes. \n\t**Please answer as a reply to the question**"
     lines = f"```{line}{line1}{line2}```"
@@ -92,14 +92,22 @@ async def on_message(message):
                 if int(day1) >= int(day2):
                     await message.channel.send(f"{j[1]} this month at {j[0]}")
 
-    # if message.content.startswith('!lectures'):
-    #     link = links.resource_link
-    #     await message.channel.send(link)
+    if message.content.startswith('!lecture'):
+        file = open('lecturelink.txt')
+        lines = file.readlines()
+        file.close()
+        for i in lines:
+            i = i.replace("'","")
+            i = i.replace("(","")
+            i = i.replace(")","")
+            j = i.split(',,')
+            j[1] = j[1].replace("\n","")
+            await message.channel.send(f"{j[0]} : {j[1]}")
     
     if message.content.startswith('!oh'):
-        await message.channel.send(f"Friday 8:00 to 9:45 in ALP 2210.\n Click on the below link to find where it is located:\n https://goo.gl/maps/BWMbE6cgYJ7ivSKN6")
+        await message.channel.send(f"Office hour is at Friday 8:00 to 9:45 in ALP 2210.\nClick on the below link to find where it is located:\n https://goo.gl/maps/BWMbE6cgYJ7ivSKN6")
     
-    if message.content.startswith('!reload'):
+    if message.content.startswith('!reloadA'):
         assignment_ids = assingment_id_extractor(int(courseID))
         assignmentDict = get_due_dates(assignment_ids)
         file = open('scheduled.txt', 'w')
@@ -109,6 +117,10 @@ async def on_message(message):
             file.write(line_to_write)
         file.close()
         await message.channel.send(f"Course Assignments Reloaded")
+
+    if message.content.startswith('!reloadL'):
+        assignment_ids = get_lecture_link(int(courseID))
+        await message.channel.send(f"Course Lectures Reloaded")
 
 if __name__ == "__main__":
     bot.run(discordToken)
