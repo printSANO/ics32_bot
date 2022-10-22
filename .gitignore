@@ -2,6 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
+credentials.json
+token.json
+secretToken.py
+scheduled.txt
 
 # C extensions
 *.so
