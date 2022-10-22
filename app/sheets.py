@@ -17,7 +17,7 @@ def writeToSheet(content: list):
             wk1.append_table(content,start=cell)
             startNum = i
             break
-    return (startNum,"Message recorded to spreadsheet")
+    return f"Message recorded to spreadsheet in row {startNum}"
 
 if __name__ == "__main__":
     writeToSheet(["B2","hello"])
