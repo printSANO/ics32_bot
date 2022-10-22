@@ -3,21 +3,21 @@ bot for UCI ICS32- For Professor Brent Nash
 
 #supported commands:
 ##Bot Commands: 
-```
-!help : list of bot commands
 
-!due : Check assignments due
 
-!fs : Check full schedule
+- [x] !help : list of bot commands
 
-!lecture : (In development) Link to Professor's lecture recordings
+- [x] !due : Check assignments due
 
-!oh : Office hour information
+- [x] !fs : Check full schedule
 
-!xkcd : (In development) A random XKCD comicThe following commands are for asking questions and answers
+- [x] !lecture :  Link to Professor's lecture recordings
 
-!question : (in development) put question! before your actual question so it can be recorded to a spreadsheet for future purposes
+- [x] !oh : Office hour information
 
-!answer : (in development) put answer! before your answer so it can be recorded to a spreadsheet for future purposes. 
-    **Please answer as a reply to the question**
-```
+- [x] !xkcd : A random XKCD comicThe following commands are for asking questions and answers
+
+- [x] !question : (in development) put question! before your actual question so it can be recorded to a spreadsheet for future purposes
+
+- [x] !answer : (in development) put answer! before your answer so it can be recorded to a spreadsheet for future purposes. 
+                **Please answer as a reply to the question**
