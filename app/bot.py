@@ -4,6 +4,7 @@ from secretToken import canvasToken, canvasUrl, courseID, discordToken
 import time
 from canvas import assingment_id_extractor, get_due_dates, get_lecture_link
 from imageScrape import getImageXKCD
+from sheets import writeToSheet
 
 bot=commands.Bot(command_prefix='!', intents=discord.Intents.default())
 
@@ -126,6 +127,35 @@ async def on_message(message):
     if message.content.startswith('!xkcd'):
         d = getImageXKCD()
         await message.channel.send(d)
+
+    if message.content.startswith('!answer'):
+        try:
+            questionMessage = await message.channel.fetch_message(message.reference.message_id)
+            if questionMessage.content.startswith('!question'):
+                messageList = [" "," "," "," "," "," "]
+                questionContent = str(questionMessage.content)[10:]
+                questionAuthor = str(questionMessage.author)
+                questionTime = str(questionMessage.created_at)[:16]
+
+                answerContent = str(message.content)[8:]
+                answerAuthor = str(message.author)
+                answerTime = str(message.created_at)[:16]
+
+                messageList[0] = questionAuthor
+                messageList[1] = questionTime
+                messageList[2] = questionContent
+                messageList[3] = answerAuthor
+                messageList[4] = answerTime
+                messageList[5] = answerContent
+
+                content = messageList
+                check = writeToSheet(content)
+                await message.channel.send(check)
+            else:
+                await message.channel.send(f"Please reply to a message block that starts with !question.")
+        except(AttributeError):
+            await message.channel.send(f"Please reply to a message block that starts with !question.")
+            
 
 if __name__ == "__main__":
     bot.run(discordToken)
