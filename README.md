@@ -5,7 +5,7 @@ bot for UCI ICS32- For Professor Brent Nash
 ## Bot Commands: 
 
 
-- [x] !help : list of bot commands
+- [X] !help : list of bot commands
 
 - [x] !due : Check assignments due
 
