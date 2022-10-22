@@ -1,8 +1,8 @@
 # ics32_bot
 bot for UCI ICS32- For Professor Brent Nash
 
-#supported commands:
-##Bot Commands: 
+# supported commands:
+## Bot Commands: 
 
 
 - [x] !help : list of bot commands
