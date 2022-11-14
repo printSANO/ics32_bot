@@ -1,12 +1,15 @@
 import discord
+from discord.ui import Button, View
 from discord.ext import commands
-from secretToken import canvasToken, canvasUrl, courseID, discordToken
+from secretToken import courseID, discordToken
+from game import GameBoard
+
 import time
 from canvas import assingment_id_extractor, get_due_dates, get_lecture_link
 from imageScrape import getImageXKCD
 from sheets import writeToSheet
 
-bot=commands.Bot(command_prefix='!', intents=discord.Intents.default())
+bot=commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
 def check_time():
     """month,day,hr,min"""
@@ -37,14 +40,60 @@ async def on_ready():
     print(f"Connecting to {bot.user.name} BOT")
     print('Connection Success')
     await bot.change_presence(status=discord.Status.online, activity=None)
-
-# @bot.event
-# async def initial_message():
-#     print("Bot Commands")
 @bot.event
 async def on_message(message):
+    await message.channel.send("ICS32 Discord Bot Tic-Tac-Toe Game")
     # if message.author == bot.user:
     #     return
+    if message.content.startswith('!game'):
+        x = GameBoard()
+        square1 = Button(label=" ", style= discord.ButtonStyle.blurple, custom_id="1", row=1)
+        square2 = Button(label=" ", style= discord.ButtonStyle.blurple, custom_id="2", row=1)
+        square3 = Button(label=" ", style= discord.ButtonStyle.blurple, custom_id="3", row=1)
+        square4 = Button(label=" ", style= discord.ButtonStyle.blurple, custom_id="4", row=2)
+        square5 = Button(label=" ", style= discord.ButtonStyle.blurple, custom_id="5", row=2)
+        square6 = Button(label=" ", style= discord.ButtonStyle.blurple, custom_id="6", row=2)
+        square7 = Button(label=" ", style= discord.ButtonStyle.blurple, custom_id="7", row=3)
+        square8 = Button(label=" ", style= discord.ButtonStyle.blurple, custom_id="8", row=3)
+        square9 = Button(label=" ", style= discord.ButtonStyle.blurple, custom_id="9", row=3)
+        lst = [square1,square2,square3,square4,square5,square6,square7,square8,square9]
+        async def button1(interaction):
+            position = lst[int(interaction.data["custom_id"])-1]
+            position.label = "X"
+            x.board[position.custom_id] = "X"
+            position.disabled = True
+            position.style = discord.ButtonStyle.red
+            # await interaction.response.edit_message(view=view)
+            if x.checkUserWin():
+                await message.channel.send("You Won!")
+            r1 = x.checkDraw()
+            if r1 == True:
+                await interaction.response.edit_message(view=view)
+                await message.channel.send("It's a Draw!")
+            if r1 == False:
+                move = x.aiHard()
+                x.board[move] = "O"
+                aipos = lst[int(move)-1]
+                if x.checkAIWin():
+                    await message.channel.send("You Lost!")
+                aipos.label = "O"
+                aipos.disabled = True
+                aipos.style = discord.ButtonStyle.green
+                await interaction.response.edit_message(view=view)
+        square1.callback = button1
+        square2.callback = button1
+        square3.callback = button1
+        square4.callback = button1
+        square5.callback = button1
+        square6.callback = button1
+        square7.callback = button1
+        square8.callback = button1
+        square9.callback = button1
+        view = View()
+        for i in lst:
+            view.add_item(i)
+        await message.channel.send(view=view)
+
     if message.content.startswith('!help'):
         await message.channel.send(bot_command())
 
