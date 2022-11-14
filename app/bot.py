@@ -42,10 +42,10 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=None)
 @bot.event
 async def on_message(message):
-    await message.channel.send("ICS32 Discord Bot Tic-Tac-Toe Game")
     # if message.author == bot.user:
     #     return
     if message.content.startswith('!game'):
+        await message.channel.send("ICS32 Discord Bot Tic-Tac-Toe Game")
         x = GameBoard()
         square1 = Button(label=" ", style= discord.ButtonStyle.blurple, custom_id="1", row=1)
         square2 = Button(label=" ", style= discord.ButtonStyle.blurple, custom_id="2", row=1)
