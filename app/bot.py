@@ -66,6 +66,9 @@ async def on_message(message):
             # await interaction.response.edit_message(view=view)
             if x.checkUserWin():
                 await message.channel.send("You Won!")
+                for j in lst:
+                    if j.label == " ":
+                        j.disabled = True
             r1 = x.checkDraw()
             if r1 == True:
                 await interaction.response.edit_message(view=view)
@@ -76,6 +79,9 @@ async def on_message(message):
                 aipos = lst[int(move)-1]
                 if x.checkAIWin():
                     await message.channel.send("You Lost!")
+                    for j in lst:
+                        if j.label == " ":
+                            j.disabled = True
                 aipos.label = "O"
                 aipos.disabled = True
                 aipos.style = discord.ButtonStyle.green
