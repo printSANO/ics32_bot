@@ -1,4 +1,4 @@
-discord.py==1.7.3
+discord.py==2.0.1
 canvasapi==3.0.0
 pygsheets==2.0.5
 beautifulsoup4==4.11.1
