@@ -28,7 +28,7 @@ def check_time():
 
 def bot_command():
     """Bot command help"""
-    line = f"Bot Commands: \n\n!help : list of bot commands\n\n!due : Check assignments due\n\n!fs : Check full schedule\n\n!lecture : (In development) Link to Professor's lecture recordings\n\n!oh : Office hour information\n\n!xkcd : A random XKCD comic\n\n!game : Tic Tac Toe game"
+    line = f"Bot Commands: \n\n!help : list of bot commands\n\n!due : Check assignments due\n\n!fs : Check full schedule\n\n!lecture : (In development) Link to Professor's lecture recordings\n\n!oh : Office hour information\n\n!xkcd : A random XKCD comic\n\n!game : Tic Tac Toe game\n\n"
     line1 = f"The following commands are for asking questions and answers\n\n!question : put question! before your actual question so it can be recorded to a spreadsheet for future purposes"
     line2 = f"\n\n!answer : put answer! before your answer so it can be recorded to a spreadsheet for future purposes. \n\t**Please answer as a reply to the question**"
     lines = f"```{line}{line1}{line2}```"
